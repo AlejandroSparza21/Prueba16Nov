@@ -6,5 +6,10 @@ namespace Prueba16Nov
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
