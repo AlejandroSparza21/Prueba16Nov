@@ -64,6 +64,7 @@
             label1.Size = new Size(89, 20);
             label1.TabIndex = 2;
             label1.Text = "Parámetro 1";
+            label1.Click += label1_Click;
             // 
             // dataGridView1
             // 
@@ -73,6 +74,7 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(300, 188);
             dataGridView1.TabIndex = 3;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // label2
             // 
@@ -82,6 +84,7 @@
             label2.Size = new Size(89, 20);
             label2.TabIndex = 5;
             label2.Text = "Parámetro 2";
+            label2.Click += label2_Click;
             // 
             // textBox2
             // 
@@ -89,6 +92,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(125, 27);
             textBox2.TabIndex = 4;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // button2
             // 
