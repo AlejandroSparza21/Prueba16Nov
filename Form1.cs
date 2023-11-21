@@ -12,10 +12,10 @@ namespace Prueba16Nov
         private void button1_Click(object sender, EventArgs e)
         {
             // Paso 0: Condición de vacío:
-            if (textBox1.Text.Equals(**) ||
-                textBox2.Text.Equals(**))
+            if (textBox1.Text.Equals("") || 
+                textBox2.Text.Equals(""))
             {
-                MessageBox.Show("Los números tienen que ser MAYOR que cero, NO VACÍOS.")
+                MessageBox.Show("Los números tienen que ser MAYOR que cero, NO VACÍOS.");
                 return;
             }
             // Paso 1: Inicialización de parámetros:
@@ -52,7 +52,31 @@ namespace Prueba16Nov
 
         public void DescargaExcel(DataGridView data)
         {
+            // Paso 0: Instalar complemento de Excel:
+            Microsoft.Office.Interop.Excel.Application exportarExcel = new Microsoft.Office.Interop.Excel.Application();
+            exportarExcel.Application.Workbooks.Add(true); // Añadir libro de trabajo.
+            int indiceColumna = 0;
+            // Paso 1: Construyes columnas y los nombres de las "cabeceras":
+            foreach (DataGridViewColumn columna in data.Columns) 
+            {
+                indiceColumna++;
+                exportarExcel.Cells[1, indiceColumna] = columna.HeaderText; // Obtener encabezados de columna.
+            }
+            // Paso 2: Construir filas y llenas valores:
+            int indiceFilas = 0;
 
+            foreach(DataGridViewRow fila in data.Rows)
+            {
+                indiceFilas++;
+                indiceColumna = 0;
+                foreach (DataGridViewColumn columna in data.Columns)
+                {
+                    indiceColumna++;
+                    exportarExcel.Cells[indiceFilas + 1, indiceColumna] = fila.Cells[columna.Name].Value;
+                }
+            }
+            // Paso 3: Visibilidad:
+            exportarExcel.Visible = true;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -62,7 +86,7 @@ namespace Prueba16Nov
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            DescargaExcel(dataGridView1);
         }
 
         private void label2_Click(object sender, EventArgs e)
