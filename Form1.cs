@@ -32,12 +32,20 @@ namespace Prueba16Nov
                 MessageBox.Show("Los números tienen que ser MAYORES QUE CERO.");
                 return;
             }
-            // Añadir que m sea mayor a x0, a y c.
-            //if (m < x0 || m < a || m < c)
-            //{
-                //MessageBox.Show("m tiene que ser MAYOR QUE los demás números.");
-                //return;
-            //}
+
+            // Paso 1.3: Validar que m sea mayor a x0, a y c.
+            if (m < x0 || m < a || m < c)
+            {
+                MessageBox.Show("m tiene que ser MAYOR QUE los demás números.");
+                return;
+            }
+
+            // Paso 1.4: Validar que m sea primo:
+            if (!esPrimo(m))
+            {
+                MessageBox.Show("m tiene que ser NÚMERO PRIMO.");
+                return;
+            }
 
             // Paso 2: Declarar clase algoritmo genético:
             AlgoritmoSimulacion algoritmo = new AlgoritmoSimulacion();
@@ -97,6 +105,21 @@ namespace Prueba16Nov
             exportarExcel.Visible = true;
         }
 
+        public bool esPrimo(int numero)
+        {
+            if (numero < 2)
+            {
+                return false;
+            }
+            for (int i = 2; i <= Math.Sqrt(numero); i++)
+            {
+                if (numero % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -133,6 +156,11 @@ namespace Prueba16Nov
         }
 
         private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

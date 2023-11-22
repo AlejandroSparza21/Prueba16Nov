@@ -29,6 +29,11 @@ namespace Prueba16Nov.Algoritmos
             {
                 // Paso 2: Calculamos el siguiente valor:
                 int valorGeneradoAux = (a * valorGenerado + c) % m; // Fórmula del método.
+                // Paso 2.5: Validar que el valor siguiente no se repita:
+                if (listaSalida.Contains(valorGeneradoAux))
+                {
+                    break;
+                }
                 // Paso 3: Guardamos el valor nuevo.
                 listaSalida.Add(valorGeneradoAux);
                 // Paso 4: Seteamos el siguiente valor.
