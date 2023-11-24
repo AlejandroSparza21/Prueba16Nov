@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prueba16Nov.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,24 @@ namespace Prueba16Nov.Algoritmos
             }
 
             return listaSalida;
+        }
+
+        public List<Experimento> SimulacionMontecarlo(int a, int b, int numVarInd, int numExp)
+        {
+            List<Experimento> listaExperimentos = new List<Experimento>();
+            for (int i = 0; i < numExp; i++)
+            {
+                Experimento experimento = new Experimento();
+                experimento.IdExperimento = i + 1; // Id del experimento.
+                for (int j = 0; j < numVarInd; j++)
+                {
+                    Random random = new Random();
+                    int aleatorio = random.Next(a, b); // Valor aleatorio entre a y b.
+                    experimento.ListaValoresPaneles.Add(aleatorio); // Añadir valor aleatorio a la lista de paneles del experimento.
+                }
+                listaExperimentos.Add(experimento); // Añadir experimento a la lista de experimentos.
+            }
+            return listaExperimentos;
         }
     }
 }
