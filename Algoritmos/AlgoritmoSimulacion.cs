@@ -20,6 +20,64 @@ namespace Prueba16Nov.Algoritmos
             return listaSalida;
         }
 
+        public List<List<int>> CuadradoMedio(int x0, int n, int totalValores)
+        {
+            // Paso 1: Inicializamos valor generado.
+            int valorGenerado = x0; // El primer valor es x0 en el congruencial.
+            List<List<int>> matrizSalida = new List<List<int>>();
+
+            for (int i = 0; i < totalValores; i++)
+            {
+                List<int> listaSalida = new List<int>(); // Lista de fila.
+                listaSalida.Add(i); // Añadir índice.
+                listaSalida.Add(valorGenerado); // Añadir valor semilla.
+                // Paso 2: Calculamos el siguiente valor:
+                int x0_2 = (int)Math.Pow(valorGenerado, 2); // El valor al cuadrado.
+                listaSalida.Add(x0_2); // Añadir valor semilla al cuadrado.
+                string sx0_2 = x0_2.ToString(); // Se convierte a string.
+                // Paso 2.1: Obtener los dígitos de enmedio:
+                string msx0_2 = "0"; // 0 originalmente.
+                if (sx0_2.Length > 2) // Si son más de 2:
+                {
+                    msx0_2 = sx0_2.Substring(1, sx0_2.Length - 2); // Quito los dígitos extremos.
+                }
+                listaSalida.Add(int.Parse(msx0_2)); // Añadir el valor de enmedio.
+                // Paso 2.2: Se valida que los dígitos de enmedio tengan al menos la longitud de 2n:
+                int lmsx0_2 = msx0_2.Length;
+                if (lmsx0_2 < 2 * n)
+                {
+                    for (int j = 0; j < 2*n - lmsx0_2; j++)
+                    {
+                        msx0_2 += "0"; // Colocar 0's a la derecha del valor de enmedio.
+                    }
+                }
+
+                // Paso 2.3: Obtener los n primeros dígitos del valor de enmedio:
+                string cpy = msx0_2;
+                string valor1s = msx0_2.Substring(0, n);
+                // Paso 2.4: Obtener los n últimos dígitos del valor de enmedio:
+                string valor2s = cpy.Substring(cpy.Length-n);
+
+                // Paso 2.5: Devolver los valores a enteros:
+                int valor1 = int.Parse(valor1s);
+                int valor2 = int.Parse(valor2s);
+                listaSalida.Add(valor1); // Añadir valor1 a la lista.
+                listaSalida.Add(valor2); // Añadir valor2 a la lista.
+                matrizSalida.Add(listaSalida); // Añadir la fila a la matriz de salida.
+
+                // Si valor1 es 0, se acaba el algoritmo:
+                if (valor1 == 0)
+                {
+                    break;
+                }
+
+                // Paso 2.6: actualizar el valor inicial al valor 1:
+                valorGenerado = valor1;
+
+            }
+            return matrizSalida;
+        }
+
         public List<int> GenerarValoresPseudoaleatoriosCongruenciales(int x0, int a, int c, int m, int totalValores)
         {
             // Paso 1: Inicializamos valor generado.

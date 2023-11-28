@@ -14,65 +14,60 @@ namespace Prueba16Nov
             // Paso 0: Condición de vacío:
             if (textBox1.Text.Equals("") ||
                 textBox2.Text.Equals("") ||
-                textBox3.Text.Equals("") ||
-                textBox4.Text.Equals(""))
+                textBox3.Text.Equals(""))
             {
                 MessageBox.Show("Los números tienen que ser NO VACÍOS.");
                 return;
             }
             // Paso 1: Inicialización de parámetros:
-            int x0 = Convert.ToInt32(textBox1.Text);
-            int a = Convert.ToInt32(textBox2.Text);
-            int c = Convert.ToInt32(textBox3.Text);
-            int m = Convert.ToInt32(textBox4.Text);
-            int total = Convert.ToInt32(textBox5.Text);
+            int x0 = Convert.ToInt32(textBox1.Text); // Semilla.
+            int n = Convert.ToInt32(textBox2.Text); // Número de digitos.
+            int total = Convert.ToInt32(textBox3.Text); // Números a generar.
             // Paso 1.2: Validación algoritmo:
-            if (x0 < 0 || a <= 0 || c <= 0 || m <= 0)
+            if (x0 <= 0 || n <= 0 || total <= 0)
             {
                 MessageBox.Show("Los números tienen que ser MAYORES QUE CERO.");
-                return;
-            }
-
-            // Paso 1.3: Validar que m sea mayor a x0, a y c.
-            if (m < x0 || m < a || m < c)
-            {
-                MessageBox.Show("m tiene que ser MAYOR QUE los demás números.");
-                return;
-            }
-
-            // Paso 1.4: Validar que m sea primo:
-            if (!esPrimo(m))
-            {
-                MessageBox.Show("m tiene que ser NÚMERO PRIMO.");
                 return;
             }
 
             // Paso 2: Declarar clase algoritmo genético:
             AlgoritmoSimulacion algoritmo = new AlgoritmoSimulacion();
             // Paso 3: Llamar método principal:
-            List<int> listaEnteros = algoritmo.GenerarValoresPseudoaleatoriosCongruenciales(x0, a, c, m, total);
+            List<List<int>> matrizEnteros = algoritmo.CuadradoMedio(x0, n, total);
             // Paso 4: Llenar el grid:
-            llenarGrid(listaEnteros);
+            llenarGrid(matrizEnteros);
         }
 
         // Recibo lista de enteros.
-        public void llenarGrid(List<int> lista)
+        public void llenarGrid(List<List<int>> lista)
         {
             // Paso 0: Indicar el número de columnas:
             string numeroColumna1 = "1";
             string numeroColumna2 = "2";
+            string numeroColumna3 = "3";
+            string numeroColumna4 = "4";
+            string numeroColumna5 = "5";
+            string numeroColumna6 = "6";
 
             // Paso 1: Determinar la cantidad de columnas:
             dataGridView1.Columns.Clear(); // Borrar contenido.
-            dataGridView1.Columns.Add(numeroColumna1, "Id"); // Cabecera de columna 1.
-            dataGridView1.Columns.Add(numeroColumna2, "Valor");
+            dataGridView1.Columns.Add(numeroColumna1, "n"); // Cabecera de columna 1.
+            dataGridView1.Columns.Add(numeroColumna2, "R(n)"); // Cabecera de columna 2.
+            dataGridView1.Columns.Add(numeroColumna3, "R(n)^2"); // Cabecera de columna 3.
+            dataGridView1.Columns.Add(numeroColumna4, "M.R(n)^2"); // Cabecera de columna 4.
+            dataGridView1.Columns.Add(numeroColumna5, "Val 1"); // Cabecera de columna 5.
+            dataGridView1.Columns.Add(numeroColumna6, "Val 2"); // Cabecera de columna 6.
 
             // Paso 2: Recorrer el grid, para cada fila llenar los valores aleatorios:
             for (int i = 0; i < lista.Count; i++)
             {
                 dataGridView1.Rows.Add(); // Añadir filas.
-                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna1) - 1].Value = (i + 1).ToString();
-                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna2) - 1].Value = lista[i].ToString();
+                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna1) - 1].Value = lista[i][Int32.Parse(numeroColumna1) - 1].ToString();
+                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna2) - 1].Value = lista[i][Int32.Parse(numeroColumna2) - 1].ToString();
+                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna3) - 1].Value = lista[i][Int32.Parse(numeroColumna3) - 1].ToString();
+                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna4) - 1].Value = lista[i][Int32.Parse(numeroColumna4) - 1].ToString();
+                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna5) - 1].Value = lista[i][Int32.Parse(numeroColumna5) - 1].ToString();
+                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna6) - 1].Value = lista[i][Int32.Parse(numeroColumna6) - 1].ToString();
             }
         }
 
